@@ -1,0 +1,41 @@
+{{
+  "name": "dashboard-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for MyDataExplored project",
+  "main": "src/index.js", // Entry point for the application
+  "scripts": {
+    "start": "react-scripts start", // Starts the development server
+    "build": "react-scripts build", // Builds the app for production
+    "test": "react-scripts test", // Runs the test suite
+    "eject": "react-scripts eject" // Ejects the default configuration (use cautiously)
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.0", // Emotion library for styling
+    "@emotion/styled": "^11.9.0", // Styled-components-like API for Emotion
+    "@mui/material": "^5.10.0", // Material-UI for React components
+    "highcharts": "^10.0.0", // Highcharts for creating interactive charts
+    "highcharts-react-official": "^3.0.0", // React wrapper for Highcharts
+    "react": "^18.0.0", // React library for building user interfaces
+    "react-dom": "^18.0.0", // React DOM renderer
+    "react-scripts": "5.0.1" // Configuration and scripts for Create React App
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.0.0", // Custom jest matchers for testing DOM nodes
+    "@testing-library/react": "^13.0.0", // React testing library
+    "@testing-library/user-event": "^14.0.0" // Library to simulate user interactions in tests
+  },
+  "browserslist": {
+    "production": [ // Target browsers for production build
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [ // Target browsers for development
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "author": "Your Name", // Replace with your name or organization
+  "license": "MIT" // License type
+}
