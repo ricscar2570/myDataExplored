@@ -1,138 +1,105 @@
-# Interactive Dashboard Project
+MyDataExplored 🚀
+La Dashboard Interattiva per l’Analisi Dati Multi-Database
 
-Welcome to the Interactive Dashboard Project! This dashboard enables users to explore and analyze complex datasets through interactive filters, dynamic charts, and customizable visualizations. It can be adapted to analyze business, demographic, financial, or any relevant data types.
+🔥 Cosa rende MyDataExplored incredibile?
 
-## Features
+✅ Analizza i dati in tempo reale con grafici dinamici 📊
+✅ Supporto per qualsiasi database (PostgreSQL, MySQL, MongoDB) 🗄️
+✅ Dashboard interattivo con filtri avanzati 🎛️
+✅ Protezione avanzata contro SQL Injection 🔒
+✅ Logging e monitoraggio delle query in tempo reale 📜
+✅ Interfaccia per eseguire query SQL direttamente dal browser 🖥️
+✅ Configurazione del database via UI senza modificare codice 🛠️
+✅ Containerizzazione con Docker per deployment facile e veloce 🐳
+🚀 Come Funziona?
+1️⃣ Seleziona il tuo database
 
-- **Interactive Filters**: Filter data based on categories or date ranges to narrow down the insights.
-- **Dynamic Charts**: Visualize data through responsive, interactive charts using Plotly.js and D3.js.
-- **Customizable Views**: Change visualization types, adjust filters, and personalize the dashboard to suit analysis needs.
-- **Real-Time Data Processing**: Data processed in Python and served efficiently through a Node.js backend.
-- **Scalable Deployment**: Easily deployed using Docker and MongoDB as a flexible and scalable database.
+🔧 Entra nella sezione Configura Database e inserisci le credenziali del tuo database. Puoi scegliere tra:
+✔ PostgreSQL
+✔ MySQL
+✔ MongoDB
 
-## Technologies Used
+Tutto è gestito dinamicamente, senza bisogno di riavviare il server. 🎯
+2️⃣ Carica i tuoi dati e applica filtri interattivi
 
-- **Frontend**: React.js, D3.js, Plotly.js
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Data Analysis**: Python, Pandas, NumPy
-- **Deployment**: Docker, Heroku
+    Naviga nel Dashboard e visualizza i tuoi dati con grafici avanzati (Highcharts).
+    Applica filtri dinamici per esplorare solo le informazioni più rilevanti.
 
+3️⃣ Esegui query SQL in tempo reale
 
+📡 Vai su Test Query e inserisci le tue query SQL in modo sicuro!
 
-Getting Started
-Prerequisites
+    Esegui query avanzate su PostgreSQL e MySQL.
+    I risultati vengono mostrati direttamente nell’interfaccia.
 
-    Docker: Make sure Docker is installed on your machine.
-    MongoDB: If not using Docker, ensure MongoDB is available for the backend.
+4️⃣ Protezione totale contro attacchi SQL Injection
 
-Installation
+🔒 Qualunque query sospetta viene bloccata automaticamente e registrata nei log.
+5️⃣ Monitoraggio avanzato e logging in tempo reale
 
-    Clone the Repository:
+📝 Ogni query eseguita viene registrata in logs/query.log con:
+✔ Timestamp
+✔ Tipo di database
+✔ Parametri usati
+✔ Tentativi di SQL Injection 🚨
+🛠️ Tecnologie Utilizzate
+Tecnologia	Utilizzo
+React.js	Frontend dinamico
+Material-UI	UI moderna e responsiva
+Node.js	Backend scalabile
+Express.js	API REST robuste
+PostgreSQL	Database SQL avanzato
+MySQL	Supporto SQL alternativo
+MongoDB	Database NoSQL
+Prisma ORM	Gestione database multi-driver
+Docker	Deployment semplificato
+GraphQL	Query flessibili per i dati
+Winston	Logging avanzato
+Helmet.js	Sicurezza API
+Axios	Comunicazione frontend-backend
+📦 Setup & Installazione
+1️⃣ Clona il repository
 
-git clone https://github.com/yourusername/interactive-dashboard.git
-cd interactive-dashboard
+git clone https://github.com/tuo-username/MyDataExplored.git
+cd MyDataExplored
 
-Setup Environment Variables:
+2️⃣ Configura il database
 
-    Navigate to backend/.env and add your MongoDB URI:
+Crea un file .env con le credenziali del database:
 
-    MONGO_URI=mongodb://mongo:27017/dashboard
+DB_TYPE=postgresql
+DB_HOST=localhost
+DB_USER=tuo-username
+DB_PASSWORD=tuo-password
+DB_NAME=mydataexplored
 
-Run the Application:
+3️⃣ Avvia il backend
 
-    Start all services using Docker Compose:
+cd backend
+npm install
+node server.js
 
-        docker-compose up --build
+4️⃣ Avvia il frontend
 
-        This command will build and run the frontend, backend, and MongoDB services.
+cd frontend
+npm install
+npm start
 
-    Access the Dashboard:
-        Open your browser and go to http://localhost:3000 to see the dashboard in action.
+✅ Ora puoi accedere al dashboard su http://localhost:3000 🚀
+🔥 Demo Live
 
-Usage
+💻 Prossimamente: versione online disponibile!
+📌 Prossimi Obiettivi
 
-    Data Filtering: Use the dropdown menu to filter data by category (e.g., Finance, Demographics).
-    Interactive Charts: The chart dynamically updates based on selected filters.
-    Data Upload: Add new datasets by using the API or data ingestion script.
+🚀 Webhook per aggiornamento dati in tempo reale
+🔍 Alert via email per SQL Injection rilevati
+📈 Grafici più avanzati con drill-down interattivo
+🏆 Contribuisci al progetto
 
-API Endpoints
+👨‍💻 Vuoi migliorare MyDataExplored? Forka il progetto e inviaci le tue PR!
+📩 Hai suggerimenti? Apri un issue o scrivici!
+⭐ Lascia un ⭐ su GitHub se ti piace!
 
-    GET /api/data: Retrieves data. Supports optional query parameter category to filter results by category.
-    POST /api/data: Adds a new data entry. Accepts a JSON body with fields category, value, and timestamp.
+📌 Vai al repository →
 
-Data Preprocessing (Python)
-
-To preprocess and load data into MongoDB, run the data_preprocessing.py script:
-
-cd data-analysis
-python3 data_preprocessing.py
-
-Deployment
-
-The project is set up to deploy seamlessly with Docker and Heroku. To deploy on Heroku:
-
-    Create a Heroku app and link it to this repository.
-    Add the MongoDB connection URI to Heroku's environment variables.
-    Deploy via the Heroku dashboard or CLI.
-
-
-# Learning Objectives for MyData Explored Project
-
-## General Goals
-- Understand the architecture and components of a full-stack interactive dashboard.
-- Learn how to preprocess and analyze data for dynamic visualizations.
-- Develop skills to integrate Python-based data analysis with a Node.js backend.
-- Deploy a scalable, containerized application using Docker and cloud platforms.
-
-## Frontend Goals
-1. Learn how to use **React.js** to build interactive and modular UI components.
-2. Explore **D3.js** and **Plotly.js** for creating responsive and interactive data visualizations.
-3. Understand the structure and purpose of a single-page application (SPA) in a data analytics context.
-
-## Backend Goals
-1. Gain proficiency in using **Node.js** and **Express.js** for building RESTful APIs.
-2. Learn how to manage data storage and retrieval with **MongoDB**.
-3. Understand how to handle environment variables securely in backend development.
-
-## Data Analysis Goals
-1. Master **data preprocessing** techniques using Python libraries like **Pandas** and **NumPy**.
-2. Learn how to clean, transform, and structure raw datasets for MongoDB storage.
-3. Understand the integration of Python scripts with a backend server for data ingestion.
-
-## Deployment Goals
-1. Learn how to containerize an application using **Docker**.
-2. Understand **Docker Compose** for managing multi-service applications.
-3. Gain hands-on experience deploying applications on **Heroku** or similar cloud platforms.
-
-## Collaborative Development Goals
-1. Learn how to use **GitHub** for version control and collaborative development.
-2. Understand branching strategies and the pull request workflow for contributing to open-source projects.
-3. Write clear and comprehensive documentation for project setup and usage.
-
-## Advanced Features Goals
-1. Explore real-time data processing techniques for live dashboards.
-2. Learn how to enhance user experience by adding customizable filters and views.
-3. Experiment with adding machine learning insights or advanced analytics as future enhancements.
-
-
-
-
-Contributing
-
-We welcome contributions to enhance functionality, add visualizations, or improve data processing. Please follow these steps:
-
-    Fork the repository.
-    Create a new branch: git checkout -b feature/new-feature
-    Commit your changes: git commit -m 'Add new feature'
-    Push to the branch: git push origin feature/new-feature
-    Submit a pull request.
-
-License
-
-This project is licensed under the MIT License.
-Acknowledgements
-
-Thanks to all the open-source projects and libraries that made this project possible!
-
-Happy Data Exploring! 🎉
+🔥 MyDataExplored è il futuro dell'analisi dati. Il tuo database, la tua dashboard. 🚀
