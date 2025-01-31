@@ -1,30 +1,22 @@
-// Import the required libraries from Winston
-const { createLogger, format, transports } = require('winston');
-const path = require('path');
 
-// Define a custom format for log messages
-const logFormat = format.combine(
-  format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), // Add a timestamp to each log
-  format.printf(
-    ({ timestamp, level, message }) =>
-      `[${timestamp}] ${level.toUpperCase()}: ${message}` // Customize the log message format
-  )
-);
+const winston = require("winston");
+const path = require("path");
 
-// Create the logger instance
-const logger = createLogger({
-  level: 'info', // Default logging level
-  format: logFormat, // Apply the custom format
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
   transports: [
-    // Console transport: Logs messages to the console
-    new transports.Console(),
-
-    // File transport: Logs messages to a file
-    new transports.File({
-      filename: path.join(__dirname, '../logs/combined.log'), // Log file location
-    }),
+    new winston.transports.File({ filename: path.join(__dirname, "../logs/query.log") }),
+    new winston.transports.Console(),
   ],
 });
 
-// Export the logger instance
-module.exports = logger;
+function detectSQLInjection(query) {
+  const riskyPatterns = ["--", ";", "DROP", "DELETE", "INSERT", "UPDATE", "xp_cmdshell"];
+  return riskyPatterns.some(pattern => query.toUpperCase().includes(pattern));
+}
+
+module.exports = { logger, detectSQLInjection };

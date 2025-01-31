@@ -1,28 +1,25 @@
-// Import required libraries and components
-import React from 'react';
-import { CssBaseline, Container, Typography } from '@mui/material'; // Material-UI components
-import Dashboard from './components/Dashboard'; // Custom Dashboard component
 
-// Main App component
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import DatabaseConfig from "./pages/DatabaseConfig";
+import QueryTester from "./pages/QueryTester";
+import { Container, Button, Box } from "@mui/material";
+
 function App() {
   return (
-    <div className="App">
-      {/* Apply a consistent baseline for styles across browsers */}
-      <CssBaseline />
-      
-      {/* Container to center and constrain the content */}
+    <Router>
       <Container maxWidth="md">
-        {/* Header with the application title */}
-        <Typography variant="h4" align="center" gutterBottom>
-          MyDataExplored Dashboard
-        </Typography>
-
-        {/* Render the Dashboard component */}
-        <Dashboard />
+        <Box sx={{ mt: 3, display: "flex", justifyContent: "center", gap: 2 }}>
+          <Button component={Link} to="/config" variant="contained">Configura Database</Button>
+          <Button component={Link} to="/query" variant="contained" color="secondary">Test Query</Button>
+        </Box>
+        <Routes>
+          <Route path="/config" element={<DatabaseConfig />} />
+          <Route path="/query" element={<QueryTester />} />
+        </Routes>
       </Container>
-    </div>
+    </Router>
   );
 }
 
-// Export the App component as the default export
 export default App;
