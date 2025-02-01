@@ -8,14 +8,22 @@ const DatabaseConfig = () => {
     password: "",
     database: "",
   });
+  
+  
 
   const handleChange = (e) => {
     setConfig({ ...config, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Configurazione salvata con successo!");
+    try {
+      await axios.post("/api/config", config); // Invia la configurazione al backend
+      alert("Configurazione salvata con successo!");
+    } catch (error) {
+      console.error("Errore nel salvataggio della configurazione:", error);
+      alert("Errore nel salvataggio della configurazione");
+    }
   };
 
   return (

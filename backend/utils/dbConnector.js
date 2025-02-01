@@ -1,6 +1,6 @@
-
 const { Pool } = require("pg");
 const mysql = require("mysql2/promise");
+const { connectMongoDB } = require("./mongodbConnector"); // Importa la funzione
 
 async function connectDB() {
   const dbType = process.env.DB_TYPE;
@@ -25,4 +25,17 @@ async function connectDB() {
   }
 }
 
-module.exports = connectDB;
+// Funzione per ottenere il connettore corretto
+async function getDBConnector() {
+  const dbType = process.env.DB_TYPE;
+
+  if (dbType === "postgresql" || dbType === "mysql") {
+    return connectDB(); // Ritorna la connessione SQL
+  } else if (dbType === "mongodb") {
+    return connectMongoDB(); // Ritorna la connessione MongoDB
+  } else {
+    throw new Error("Database non supportato");
+  }
+}
+
+module.exports = { connectDB, getDBConnector }; // Esporta entrambe le funzioni
