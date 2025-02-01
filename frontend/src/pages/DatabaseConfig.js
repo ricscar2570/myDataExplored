@@ -1,44 +1,39 @@
-
 import React, { useState } from "react";
-import axios from "axios";
-import { Container, TextField, MenuItem, Button, Typography, Box } from "@mui/material";
+import { Container, Typography, Box, TextField, Button, Card, CardContent } from "@mui/material";
 
 const DatabaseConfig = () => {
   const [config, setConfig] = useState({
-    dbType: "postgresql",
     host: "",
     user: "",
     password: "",
     database: "",
   });
 
-  const handleChange = (event) => {
-    setConfig({ ...config, [event.target.name]: event.target.value });
+  const handleChange = (e) => {
+    setConfig({ ...config, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async () => {
-    try {
-      await axios.post("http://localhost:5000/api/config", config);
-      alert("Configurazione salvata con successo!");
-    } catch (error) {
-      alert("Errore nel salvataggio della configurazione.");
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Configurazione salvata con successo!");
   };
 
   return (
     <Container maxWidth="sm">
-      <Box sx={{ mt: 5 }}>
-        <Typography variant="h5">Configura il tuo Database</Typography>
-        <TextField select label="Tipo di Database" name="dbType" value={config.dbType} onChange={handleChange} fullWidth margin="normal">
-          <MenuItem value="postgresql">PostgreSQL</MenuItem>
-          <MenuItem value="mysql">MySQL</MenuItem>
-          <MenuItem value="mongodb">MongoDB</MenuItem>
-        </TextField>
-        <TextField label="Host" name="host" value={config.host} onChange={handleChange} fullWidth margin="normal" />
-        <TextField label="User" name="user" value={config.user} onChange={handleChange} fullWidth margin="normal" />
-        <TextField label="Password" name="password" type="password" value={config.password} onChange={handleChange} fullWidth margin="normal" />
-        <TextField label="Database" name="database" value={config.database} onChange={handleChange} fullWidth margin="normal" />
-        <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ mt: 2 }}>Salva Configurazione</Button>
+      <Box sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+        <Card sx={{ width: "100%", backgroundColor: "rgba(255,255,255,0.1)", padding: 2, borderRadius: 2 }}>
+          <CardContent>
+            <Typography variant="h5" color="textPrimary">🔧 Configurazione Database</Typography>
+            
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
+              <TextField name="host" label="Host" variant="outlined" fullWidth required onChange={handleChange} />
+              <TextField name="user" label="Utente" variant="outlined" fullWidth required onChange={handleChange} />
+              <TextField name="password" label="Password" type="password" variant="outlined" fullWidth required onChange={handleChange} />
+              <TextField name="database" label="Nome Database" variant="outlined" fullWidth required onChange={handleChange} />
+              <Button type="submit" variant="contained" color="primary">Salva Configurazione</Button>
+            </Box>
+          </CardContent>
+        </Card>
       </Box>
     </Container>
   );

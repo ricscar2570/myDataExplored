@@ -1,138 +1,177 @@
-# Interactive Dashboard Project
+# 📊 MyDataExplored
 
-Welcome to the Interactive Dashboard Project! This dashboard enables users to explore and analyze complex datasets through interactive filters, dynamic charts, and customizable visualizations. It can be adapted to analyze business, demographic, financial, or any relevant data types.
+**MyDataExplored** è un'applicazione full-stack per esplorare e analizzare database SQL e NoSQL, con una dashboard interattiva, supporto a GraphQL e Dark Mode.
 
-## Features
+## 🚀 Funzionalità principali
 
-- **Interactive Filters**: Filter data based on categories or date ranges to narrow down the insights.
-- **Dynamic Charts**: Visualize data through responsive, interactive charts using Plotly.js and D3.js.
-- **Customizable Views**: Change visualization types, adjust filters, and personalize the dashboard to suit analysis needs.
-- **Real-Time Data Processing**: Data processed in Python and served efficiently through a Node.js backend.
-- **Scalable Deployment**: Easily deployed using Docker and MongoDB as a flexible and scalable database.
+✅ **Gestione multi-database**: Supporta PostgreSQL, MySQL e MongoDB  
+✅ **Interfaccia moderna con Material-UI**  
+✅ **Dashboard interattiva con Highcharts**  
+✅ **Esecuzione di query con risultati in tempo reale**  
+✅ **Supporto GraphQL per interrogazioni avanzate**  
+✅ **Dark Mode con toggle dinamico**  
+✅ **Prevenzione SQL Injection con log degli attacchi**  
+✅ **Webhook per notifiche di aggiornamenti ai dati**  
 
-## Technologies Used
+---
 
-- **Frontend**: React.js, D3.js, Plotly.js
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Data Analysis**: Python, Pandas, NumPy
-- **Deployment**: Docker, Heroku
+## 📂 Struttura del progetto
+```
+MyDataExplored/
+│── backend/                    # Server Node.js con Express (Gestione API e database)
+│   ├── routes/                 # Definizione delle API REST e GraphQL
+│   │   ├── configRoutes.js      # API per la configurazione del database
+│   │   ├── queryRoutes.js       # API per l'esecuzione di query SQL
+│   │   ├── mongoRoutes.js       # API per la gestione di MongoDB
+│   │   ├── graphqlRoutes.js     # API GraphQL per interrogazioni avanzate
+│   │   ├── webhookRoutes.js     # API per la gestione dei webhook
+│   ├── utils/                   # Moduli di supporto al backend
+│   │   ├── dbConnector.js       # Connessione a PostgreSQL/MySQL
+│   │   ├── mongodbConnector.js  # Connessione a MongoDB
+│   │   ├── logger.js            # Sistema di logging per query e attacchi SQL Injection
+│   │   ├── emailAlert.js        # Invio di alert via email per SQL Injection
+│   ├── server.js                # Entry point del backend (avvia il server Express)
+│── frontend/                    # Applicazione React (UI e gestione dati)
+│   ├── src/
+│   │   ├── pages/               # Pagine principali dell'applicazione
+│   │   │   ├── Dashboard.js      # Dashboard interattiva con Highcharts
+│   │   │   ├── DatabaseConfig.js # Configurazione del database
+│   │   │   ├── QueryTester.js    # Test di query SQL con risultati in tempo reale
+│   │   ├── redux/               # Gestione dello stato con Redux
+│   │   │   ├── store.js          # Store centrale Redux
+│   │   │   ├── dataSlice.js      # Slice Redux per la gestione dei dati
+│   │   ├── theme/               # Gestione del tema (Dark Mode)
+│   │   │   ├── ThemeProvider.js  # Tema dinamico con toggle tra chiaro/scuro
+│   │   ├── App.js               # Entry point del frontend (gestisce la navigazione)
+│── logs/                        # File di log delle query eseguite e degli attacchi SQL Injection
+│── .env                         # Configurazioni ambientali (credenziali database, email, ecc.)
+│── README.md                    # Documentazione del progetto
 
+```
 
+---
 
-Getting Started
-Prerequisites
+## 🛠️ Installazione
 
-    Docker: Make sure Docker is installed on your machine.
-    MongoDB: If not using Docker, ensure MongoDB is available for the backend.
+### 1️⃣ Clona il repository
 
-Installation
+```sh
+git clone https://github.com/tuo-utente/MyDataExplored.git
+cd MyDataExplored
 
-    Clone the Repository:
+2️⃣ Configura il backend
 
-git clone https://github.com/yourusername/interactive-dashboard.git
-cd interactive-dashboard
+📌 Modifica il file .env nella cartella backend/ con le tue credenziali:
 
-Setup Environment Variables:
+DB_TYPE=postgresql  # oppure mysql o mongodb
+DB_HOST=localhost
+DB_USER=tuo-utente
+DB_PASSWORD=tuo-password
+DB_NAME=mydataexplored
+MONGO_URI=mongodb://localhost:27017
+ALERT_EMAIL_USER=tuo-email@gmail.com
+ALERT_EMAIL_PASS=tuo-password
+ALERT_EMAIL_ADMIN=admin@gmail.com
 
-    Navigate to backend/.env and add your MongoDB URI:
+📌 Installa le dipendenze e avvia il server:
 
-    MONGO_URI=mongodb://mongo:27017/dashboard
+cd backend
+npm install
+node server.js
 
-Run the Application:
+✅ Il backend sarà attivo su http://localhost:5000
+3️⃣ Configura il frontend
 
-    Start all services using Docker Compose:
+📌 Installa le dipendenze e avvia il frontend:
 
-        docker-compose up --build
+cd frontend
+npm install
+npm start
 
-        This command will build and run the frontend, backend, and MongoDB services.
+✅ L'app sarà disponibile su http://localhost:3000
+📡 API disponibili
+📌 API REST
 
-    Access the Dashboard:
-        Open your browser and go to http://localhost:3000 to see the dashboard in action.
+📍 Endpoint principali del backend
+Metodo	Endpoint	Descrizione
+GET	/api/query	Ottieni dati dal database
+POST	/api/query	Esegui una query SQL
+GET	/api/mongo/:collection	Ottieni documenti da MongoDB
+POST	/api/mongo/:collection/aggregate	Esegui un'aggregazione su MongoDB
+POST	/api/webhook	Registra un webhook
+POST	/api/webhook/notify	Invia una notifica webhook
+📌 API GraphQL
 
-Usage
+📍 Interroga i dati in modo avanzato su http://localhost:5000/api/graphql
 
-    Data Filtering: Use the dropdown menu to filter data by category (e.g., Finance, Demographics).
-    Interactive Charts: The chart dynamically updates based on selected filters.
-    Data Upload: Add new datasets by using the API or data ingestion script.
+📍 Esempio di query:
 
-API Endpoints
+{
+  getAllData {
+    id
+    category
+    value
+    timestamp
+  }
+}
 
-    GET /api/data: Retrieves data. Supports optional query parameter category to filter results by category.
-    POST /api/data: Adds a new data entry. Accepts a JSON body with fields category, value, and timestamp.
+📍 Esempio di query MongoDB:
 
-Data Preprocessing (Python)
+{
+  getMongoData(collection: "users") {
+    _id
+    category
+    value
+  }
+}
 
-To preprocess and load data into MongoDB, run the data_preprocessing.py script:
+🎨 Interfaccia utente
+🔧 Configurazione Database
 
-cd data-analysis
-python3 data_preprocessing.py
+📍 Percorso: http://localhost:3000/config
+✏️ Inserisci le credenziali del database e salvale.
 
-Deployment
+🖥 Tester di Query SQL
 
-The project is set up to deploy seamlessly with Docker and Heroku. To deploy on Heroku:
+📍 Percorso: http://localhost:3000/query
+✏️ Scrivi una query e ottieni il risultato immediato.
 
-    Create a Heroku app and link it to this repository.
-    Add the MongoDB connection URI to Heroku's environment variables.
-    Deploy via the Heroku dashboard or CLI.
+📊 Dashboard Interattiva
 
+📍 Percorso: http://localhost:3000/dashboard
+📈 Visualizza i dati con grafici dinamici.
 
-# Learning Objectives for MyData Explored Project
+🛡 Sicurezza
 
-## General Goals
-- Understand the architecture and components of a full-stack interactive dashboard.
-- Learn how to preprocess and analyze data for dynamic visualizations.
-- Develop skills to integrate Python-based data analysis with a Node.js backend.
-- Deploy a scalable, containerized application using Docker and cloud platforms.
+✅ Prevenzione SQL Injection
 
-## Frontend Goals
-1. Learn how to use **React.js** to build interactive and modular UI components.
-2. Explore **D3.js** and **Plotly.js** for creating responsive and interactive data visualizations.
-3. Understand the structure and purpose of a single-page application (SPA) in a data analytics context.
+    Il backend monitora query sospette e le registra nei log.
+    Se rilevato un attacco, viene inviato un alert via email.
 
-## Backend Goals
-1. Gain proficiency in using **Node.js** and **Express.js** for building RESTful APIs.
-2. Learn how to manage data storage and retrieval with **MongoDB**.
-3. Understand how to handle environment variables securely in backend development.
+✅ Gestione webhook
 
-## Data Analysis Goals
-1. Master **data preprocessing** techniques using Python libraries like **Pandas** and **NumPy**.
-2. Learn how to clean, transform, and structure raw datasets for MongoDB storage.
-3. Understand the integration of Python scripts with a backend server for data ingestion.
+    Gli aggiornamenti ai dati possono essere notificati in tempo reale.
 
-## Deployment Goals
-1. Learn how to containerize an application using **Docker**.
-2. Understand **Docker Compose** for managing multi-service applications.
-3. Gain hands-on experience deploying applications on **Heroku** or similar cloud platforms.
+🔧 Debugging e Logs
 
-## Collaborative Development Goals
-1. Learn how to use **GitHub** for version control and collaborative development.
-2. Understand branching strategies and the pull request workflow for contributing to open-source projects.
-3. Write clear and comprehensive documentation for project setup and usage.
+📌 I log delle query e degli attacchi SQL Injection sono salvati in:
 
-## Advanced Features Goals
-1. Explore real-time data processing techniques for live dashboards.
-2. Learn how to enhance user experience by adding customizable filters and views.
-3. Experiment with adding machine learning insights or advanced analytics as future enhancements.
+logs/query.log
 
+📌 Per monitorare gli errori del backend:
 
+tail -f logs/query.log
 
+🛠️ Tecnologie utilizzate
+Tecnologie	Descrizione
+Backend	Node.js, Express, PostgreSQL, MySQL, MongoDB
+Frontend	React, Redux, Material-UI, Highcharts
+Sicurezza	Helmet.js, SQL Injection detection, Webhook security
+API	REST API, GraphQL
+🏆 Conclusione
 
-Contributing
+🔹 MyDataExplored è uno strumento potente per esplorare database SQL e NoSQL.
+🔹 Interfaccia moderna e intuitiva per un'esperienza utente ottimale.
+🔹 Supporto GraphQL, dashboard interattiva e prevenzione SQL Injection.
 
-We welcome contributions to enhance functionality, add visualizations, or improve data processing. Please follow these steps:
-
-    Fork the repository.
-    Create a new branch: git checkout -b feature/new-feature
-    Commit your changes: git commit -m 'Add new feature'
-    Push to the branch: git push origin feature/new-feature
-    Submit a pull request.
-
-License
-
-This project is licensed under the MIT License.
-Acknowledgements
-
-Thanks to all the open-source projects and libraries that made this project possible!
-
-Happy Data Exploring! 🎉
+📌 Vuoi contribuire? Sentiti libero di aprire una issue o fare un pull request! 🚀

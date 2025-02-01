@@ -1,59 +1,56 @@
-
 import React, { useState } from "react";
 import axios from "axios";
-import { Container, TextField, Button, Typography, Box, CircularProgress } from "@mui/material";
+import { Container, Typography, Box, TextField, Button, Card, CardContent, CircularProgress } from "@mui/material";
 
 const QueryTester = () => {
   const [query, setQuery] = useState("");
-  const [params, setParams] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  const handleChange = (event) => {
-    setQuery(event.target.value);
-  };
-
-  const handleParamsChange = (event) => {
-    setParams(event.target.value);
-  };
-
-  const handleSubmit = async () => {
+  const handleExecuteQuery = async () => {
     setLoading(true);
-    setError(null);
-    setResult(null);
-
     try {
-      const parsedParams = params ? JSON.parse(params) : [];
-      const response = await axios.post("http://localhost:5000/api/query", { query, params: parsedParams });
+      const response = await axios.post("http://localhost:5000/api/query", { query });
       setResult(response.data);
-    } catch (err) {
-      setError("Errore nell'esecuzione della query.");
-    } finally {
-      setLoading(false);
+    } catch (error) {
+      setResult({ error: "Errore nell'esecuzione della query" });
     }
+    setLoading(false);
   };
 
   return (
     <Container maxWidth="md">
-      <Box sx={{ mt: 5 }}>
-        <Typography variant="h5">Esegui una Query sul Database in sicurezza</Typography>
-        <TextField label="Query SQL (usa ? o $1 per i parametri)" variant="outlined" fullWidth multiline rows={3} value={query} onChange={handleChange} margin="normal" />
-        <TextField label="Parametri (JSON: [val1, val2])" variant="outlined" fullWidth value={params} onChange={handleParamsChange} margin="normal" />
-        <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ mt: 2 }}>Esegui Query Sicura</Button>
+      <Box sx={{ mt: 5, display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+        <Card sx={{ width: "100%", backgroundColor: "rgba(255,255,255,0.1)", padding: 2, borderRadius: 2 }}>
+          <CardContent>
+            <Typography variant="h5" color="textPrimary">🖥️ Esegui una Query</Typography>
 
-        {loading && <CircularProgress sx={{ mt: 2 }} />}
-        
-        {error && (
-          <Typography color="error" sx={{ mt: 2 }}>{error}</Typography>
-        )}
+            <TextField
+              label="Scrivi la tua query SQL"
+              multiline
+              rows={3}
+              fullWidth
+              variant="outlined"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              sx={{ mt: 2, backgroundColor: "rgba(255,255,255,0.1)", color: "#fff" }}
+            />
 
-        {result && (
-          <Box sx={{ mt: 3, p: 2, border: "1px solid #ccc", borderRadius: "5px" }}>
-            <Typography variant="h6">Risultati:</Typography>
-            <pre style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{JSON.stringify(result, null, 2)}</pre>
-          </Box>
-        )}
+            <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={handleExecuteQuery}>
+              Esegui Query
+            </Button>
+
+            {loading && <CircularProgress sx={{ mt: 2 }} />}
+
+            {result && (
+              <Box sx={{ mt: 3, padding: 2, backgroundColor: "rgba(255,255,255,0.1)", borderRadius: 2 }}>
+                <Typography variant="body1" color="textPrimary">
+                  {result.error ? `❌ Errore: ${result.error}` : `✅ Risultato: ${JSON.stringify(result, null, 2)}`}
+                </Typography>
+              </Box>
+            )}
+          </CardContent>
+        </Card>
       </Box>
     </Container>
   );
